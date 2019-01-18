@@ -1,4 +1,6 @@
-﻿@model TodoViewModel  
+﻿@using  TodoCore.Models
+@using  Humanizer
+@model TodoViewModel
 
 @{
     ViewData["Title"] = "Manage your Todo List";
@@ -16,14 +18,14 @@
             </tr>
         </thead>
 
-        @foreach(var item in Model.Items)
+        @foreach (var item in Model.Items)
         {
             <tr>
                 <td>
                     <input type="checkbox" class="done-checkbox" />
                 </td>
                 <td>@item.Title</td>
-                <td>@item.DueAt</td>
+                <td>@item.DueAt.Humanize()</td>
             </tr>
         }
     </table>
