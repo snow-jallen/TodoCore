@@ -23,5 +23,17 @@ namespace TodoCore.Controllers
             var model = new TodoViewModel(items);
             return View(model);
         }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddItem(TodoItem newItem)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Index");
+
+            var successful = await todoItemService.AddItemAsync(newItem);
+            if (!successful)
+                return BadRequest("Count not add item");
+            return RedirectToAction("Index");
+        }
     }
 }
