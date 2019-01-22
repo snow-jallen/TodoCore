@@ -14,6 +14,7 @@ using TodoCore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TodoCore.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace TodoCore
 {
@@ -46,6 +47,21 @@ namespace TodoCore
             services.AddScoped<ITodoItemService, TodoItemService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "Sample API",
+                    Description = "Web II - Demo Web API",
+                    Contact = new Contact()
+                    {
+                        Name = "Jonathan Allen",
+                        Email = "jallen@snow.edu",
+                        Url = "www.snow.edu"
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +90,11 @@ namespace TodoCore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }

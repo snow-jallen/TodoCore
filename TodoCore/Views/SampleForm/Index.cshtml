@@ -1,0 +1,26 @@
+﻿@using TodoCore.Controllers
+@model SampleForm
+@{
+    ViewData["Title"] = "SampleFormView";
+}
+
+<h1>SampleForm View</h1>
+<div class="panel-default">
+    <div class="panel-heading">@Model.FirstName</div>
+    <div>@Model.LastName</div>
+    <div>@Model.SubmittedOn</div>
+    <div>@Model.Notes</div>
+    <div>@Model.Number</div>
+</div>
+<hr />
+<h2>SampleForm Update</h2>
+<form asp-action="UpdateItem" method="post">
+    <label asp-for="FirstName">First Name:</label>
+    <input asp-for="FirstName" />
+    <label asp-for="LastName">Last Name:</label>
+    <input asp-for="LastName" />
+    <label asp-for="Notes">Notes:</label>
+    <input asp-for="Notes" />
+    <br />
+    <button type="submit">Save</button>
+</form>
