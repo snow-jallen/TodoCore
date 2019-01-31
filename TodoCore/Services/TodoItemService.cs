@@ -32,8 +32,8 @@ namespace TodoCore.Services
 
         public Task<TodoItem[]> GetIncompleteItemsAsync()
         {
-            //return _context.Items.Where(i => i.IsDone == false).ToArrayAsync();
-            return _context.Items.ToArrayAsync();
+            return _context.Items.Where(i => i.IsDone == false).ToArrayAsync();
+            //return _context.Items.ToArrayAsync();
         }
 
         public async Task<bool> MarkDoneAsync(Guid id)

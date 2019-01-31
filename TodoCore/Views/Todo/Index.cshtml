@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <td>&#x2714;</td>
+                <td>ID</td>
                 <td>Item</td>
                 <td>Due</td>
                 <td>Type</td>
@@ -28,6 +29,7 @@
                         <input type="hidden" name="id" value="@item.Id" />
                     </form>
                 </td>
+                <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>@item.DueAt.Humanize()</td>
                 <td>@item.Type</td>
