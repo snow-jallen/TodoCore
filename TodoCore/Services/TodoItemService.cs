@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyBogusNS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace TodoCore.Services
             newItem.Id = Guid.NewGuid();
             newItem.IsDone = false;
             newItem.DueAt = DateTimeOffset.Now.AddDays(3);
-
+                       
             _context.Items.Add(newItem);
 
             var saveResult = await _context.SaveChangesAsync();
@@ -31,7 +32,8 @@ namespace TodoCore.Services
 
         public Task<TodoItem[]> GetIncompleteItemsAsync()
         {
-            return _context.Items.Where(i => i.IsDone == false).ToArrayAsync();
+            //return _context.Items.Where(i => i.IsDone == false).ToArrayAsync();
+            return _context.Items.ToArrayAsync();
         }
     }
 }
