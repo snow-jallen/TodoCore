@@ -35,5 +35,19 @@ namespace TodoCore.Controllers
                 return BadRequest("Count not add item");
             return RedirectToAction("Index");
         }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkDone(Guid id)
+        {
+            if(id==Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var successfu = await todoItemService.MarkDoneAsync(id);
+            if (!successfu)
+                return BadRequest("Could not mark item as done.");
+            return RedirectToAction("Index");
+        }
     }
 }
