@@ -37,6 +37,18 @@ namespace TodoCore.Controllers
         }
 
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddStep(Guid id, TodoStep newStep)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Index");
+
+            var successful = await todoItemService.AddStepAsync(id, newStep);
+            if (!successful)
+                return BadRequest("Count not add item");
+            return RedirectToAction("Index");
+        }
+
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkDone(Guid id)
         {
             if(id==Guid.Empty)
@@ -47,6 +59,18 @@ namespace TodoCore.Controllers
             var successfu = await todoItemService.MarkDoneAsync(id);
             if (!successfu)
                 return BadRequest("Could not mark item as done.");
+            return RedirectToAction("Index");
+        }
+
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStepIsDone(int id)
+        {
+            if (id <= 0)
+                return RedirectToAction("Index");
+
+            var success = await todoItemService.ToggleStepIsDoneAsync(id);
+            if (!success)
+                return BadRequest("Could not mark step as done.");
             return RedirectToAction("Index");
         }
     }

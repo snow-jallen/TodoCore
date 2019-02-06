@@ -30,10 +30,25 @@ namespace TodoCore.Services
             return (saveResult == 1);
         }
 
+        public async Task<bool> AddStepAsync(Guid parentId, TodoStep newStep)
+        {
+            var parent = _context.Items.Single(x => x.Id == parentId);
+            newStep.Todo = parent;            
+            newStep.Created = DateTime.Now;
+            newStep.IsDone = false;
+
+            _context.TodoSteps.Add(newStep);
+
+            var saveResult = await _context.SaveChangesAsync();
+            return (saveResult == 1);
+        }
+
         public Task<TodoItem[]> GetIncompleteItemsAsync()
         {
-            return _context.Items.Where(i => i.IsDone == false).ToArrayAsync();
-            //return _context.Items.ToArrayAsync();
+            return _context.Items
+                .Where(i => i.IsDone == false)
+                .Include(i=>i.Steps)
+                .ToArrayAsync();
         }
 
         public async Task<bool> MarkDoneAsync(Guid id)
@@ -44,6 +59,16 @@ namespace TodoCore.Services
             if (item == null)
                 return false;
             item.IsDone = true;
+            var saveResult = await _context.SaveChangesAsync();
+            return (saveResult == 1);
+        }
+
+        public async Task<bool> ToggleStepIsDoneAsync(int id)
+        {
+            var step = await _context.TodoSteps.Where(s => s.Id == id).SingleOrDefaultAsync();
+            if (step == null)
+                return false;
+            step.IsDone = !step.IsDone;
             var saveResult = await _context.SaveChangesAsync();
             return (saveResult == 1);
         }

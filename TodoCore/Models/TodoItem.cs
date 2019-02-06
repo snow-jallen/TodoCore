@@ -15,16 +15,26 @@ namespace TodoCore.Models
         public string Title { get; set; }
         public DateTimeOffset? DueAt { get; set; }
         public string Type { get; set; }
-        public ICollection<TodoSteps> Steps { get; set; }
+        public ICollection<TodoStep> Steps { get; set; }
     }
 
-    public class TodoSteps
+    public class TodoStep
     {
         public int Id { get; set; }
         public TodoItem Todo { get; set; }
         public string Title { get; set; }
         public DateTimeOffset Created { get; set; }
         public bool IsDone { get; set; }
+
+        public TodoStep()
+        {
+
+        }
+
+        public TodoStep(TodoItem parent)
+        {
+            Todo = parent;
+        }
     }
 }
 

@@ -17,6 +17,7 @@
                 <td>Item</td>
                 <td>Due</td>
                 <td>Type</td>
+                <td>Steps</td>
             </tr>
         </thead>
 
@@ -29,10 +30,33 @@
                         <input type="hidden" name="id" value="@item.Id" />
                     </form>
                 </td>
-                <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td>@item.DueAt.Humanize()</td>
                 <td>@item.Type</td>
+                <td>
+                    <h5>Steps:</h5>
+                    <ul>
+                        @foreach (var step in item.Steps)
+                        {
+                            <li>
+                                <form asp-action="ToggleStepIsDone" method="post">
+                                    <input type="checkbox" checked="@step.IsDone" class="stepdone-checkbox" />
+                                    <input type="hidden" name="id" value="@step.Id" />
+                                    @step.Title
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                    @{
+                        var newStep = new TodoStep(item);                        
+                        <form asp-action="AddStep" method="post">
+                            <label asp-for="@newStep.Title">Add a new step:</label >
+                            <input asp-for="@newStep.Title" />
+                            <input type="hidden" name="id" value="@item.Id" />                                                   
+                            <button type="submit">Add</button>
+                        </form >
+                    }
+                </td>
             </tr>
         }
     </table>

@@ -14,6 +14,11 @@ namespace TodoCore.Services
             throw new NotImplementedException();
         }
 
+        public Task<bool> AddStepAsync(Guid parentId, TodoStep newStep)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<TodoItem[]> GetIncompleteItemsAsync()
         {
             var item1 = new TodoItem
@@ -32,6 +37,11 @@ namespace TodoCore.Services
         }
 
         public Task<bool> MarkDoneAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ToggleStepIsDoneAsync(int id)
         {
             throw new NotImplementedException();
         }

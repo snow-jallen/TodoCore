@@ -15,4 +15,15 @@ $(document).ready(function () {
         var form = checkbox.closest('form');
         form.submit();
     }
+
+    $('.stepdone-checkbox').on('click', function (e) {
+        toggleStepIsDone(e.target);
+    });
+
+    function toggleStepIsDone(checkbox) {
+        checkbox.disabled = true;
+
+        var form = checkbox.closest('form');
+        form.submit();
+    }
 })

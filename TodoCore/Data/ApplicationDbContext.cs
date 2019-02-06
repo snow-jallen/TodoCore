@@ -26,10 +26,10 @@ namespace TodoCore.Data
                 .WithOne(s => s.Todo);
 
             builder.Entity<TodoItem>().HasKey(t => t.Id);
-            builder.Entity<TodoSteps>().HasKey(s => s.Id);
+            builder.Entity<TodoStep>().HasKey(s => s.Id);
         }
 
         public DbSet<TodoItem> Items { get; set; }
-        public DbSet<TodoSteps> TodoSteps { get; set; }
+        public DbSet<TodoStep> TodoSteps { get; set; }
     }
 }
